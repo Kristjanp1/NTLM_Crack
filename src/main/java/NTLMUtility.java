@@ -5,11 +5,11 @@ import jcifs.smb.NtlmPasswordAuthentication;
  *
  * This implementation depends on the JCIFS library.
  */
-public class NTLMPassword {
+public class NTLMUtility {
 
     private final static char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
 
-    private NTLMPassword() {
+    private NTLMUtility() {
         // No need to instantiate this class
     }
 
@@ -28,9 +28,6 @@ public class NTLMPassword {
         return bytesToHex(hash).toUpperCase();
     }
 
-    /**
-     * See https://stackoverflow.com/a/9855338/1314986
-     */
     private static String bytesToHex(byte[] bytes) {
         char[] hexChars = new char[bytes.length * 2];
         for (int j = 0; j < bytes.length; j++) {
