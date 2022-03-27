@@ -2,7 +2,7 @@ import java.io.IOException;
 public interface IOStringStack {
     void close() throws IOException;
 
-    boolean cacheEmpty();
+    boolean isCacheEmpty();
 
     NTLMPair getCache();
 

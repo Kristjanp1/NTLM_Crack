@@ -12,7 +12,7 @@ public final class FileBuffer implements IOStringStack {
         this.fbr.close();
     }
 
-    public boolean cacheEmpty() {
+    public boolean isCacheEmpty() {
         return this.cache == null;
     }
 
@@ -30,11 +30,13 @@ public final class FileBuffer implements IOStringStack {
         String line = this.fbr.readLine();
         if (line != null) {
             String[] lines = line.strip().split(this.delimiter);
-            try {
+            //In the case that the wordlist contains a bad row, skip it.
+            if(lines.length == 2) {
                 this.cache = new NTLMPair(lines[0], lines[1]);
-            }catch (IndexOutOfBoundsException e){
-                this.cache = new NTLMPair("null", "null"); //In case the file contains a bad row
+            }else{
+                reload();
             }
+
         } else {
             this.cache = null;
         }
@@ -42,8 +44,8 @@ public final class FileBuffer implements IOStringStack {
 
     }
 
-    private BufferedReader fbr;
-    private String delimiter;
+    private final BufferedReader fbr;
+    private final String delimiter;
 
     private NTLMPair cache;
 

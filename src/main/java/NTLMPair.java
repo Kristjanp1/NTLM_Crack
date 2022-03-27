@@ -27,4 +27,8 @@ public class NTLMPair {
         this.word = word;
         this.hash = hash;
     }
+    public NTLMPair(String[] pair) {
+        this.word = pair[0];
+        this.hash = pair[1];
+    }
 }

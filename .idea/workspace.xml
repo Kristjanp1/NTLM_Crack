@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f0857e5-1468-4082-a0cb-998191595481" name="Changes" comment="" />
+    <list default="true" id="8f0857e5-1468-4082-a0cb-998191595481" name="Changes" comment="NTLM breaking using binarySearch">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/NtlmCrack.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ExternalSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ExternalSort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FileBuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FileBuffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/IOStringStack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/IOStringStack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/NTLMCrack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NTLMCrack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/NTLMPair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NTLMPair.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,16 +27,73 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ProjectId" id="26gMCJnG2najstc1szkpU3FJLXp" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\KristjanPühvel\Desktop\KIT\NtlmCrack\src\main\java" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\KristjanPühvel\Desktop\KIT\NtlmCrack" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.NTLMCrack_withTable">
+    <configuration name="NTLMCrack" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="NTLMCrack" />
+      <module name="NtlmCrack" />
+      <option name="PROGRAM_PARAMETERS" value="-s &quot;ntlm_rasid.txt&quot; -w &quot;hashkiller-dict.txt&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NTLMCrack_withTable" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="NTLMCrack" />
+      <module name="NtlmCrack" />
+      <option name="PROGRAM_PARAMETERS" value="-s &quot;ntlm_rasid.txt&quot; -t &quot;genTable.txt&quot; -dl &quot;::&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.NTLMCrack_withTable" />
+      <item itemvalue="Application.NTLMCrack" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.NTLMCrack" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -36,11 +103,43 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1647840649568</updated>
-      <workItem from="1647840650811" duration="336000" />
+      <workItem from="1647840650811" duration="8084000" />
+      <workItem from="1648304214124" duration="19904000" />
+      <workItem from="1648325535044" duration="23702000" />
+      <workItem from="1648392749954" duration="897000" />
+      <workItem from="1648393695957" duration="3099000" />
+      <workItem from="1648396819653" duration="1621000" />
+      <workItem from="1648398629741" duration="1759000" />
+      <workItem from="1648402028529" duration="5297000" />
+      <workItem from="1648409234314" duration="201000" />
     </task>
+    <task id="LOCAL−00001" summary="External Merge sort">
+      <created>1648328471408</created>
+      <option name="number" value="LOCAL−00001" />
+      <option name="presentableId" value="LOCAL−00001" />
+      <updated>1648328471409</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="External Merge sort" />
+    <MESSAGE value="NTLM breaking using binarySearch" />
+    <option name="LAST_COMMIT_MESSAGE" value="NTLM breaking using binarySearch" />
   </component>
 </project>

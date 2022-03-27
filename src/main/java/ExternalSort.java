@@ -9,81 +9,70 @@ import java.util.PriorityQueue;
 public class ExternalSort {
 
 
-    public static void sort(File file) throws IOException {
-        int maxTempFiles = 1024;
+    public static void sort(File file, File output, String delimiter, int maxTempFiles, File destination) throws IOException {
+        System.out.println("Starting external merge.");
         long fileSize = getFileSize(file);
         long maxBlockSize = estimateBestSizeOfBlocks(fileSize, maxTempFiles, estimateAvailableMemory());
-        //List<File> sortedTempFiles = distribute(file,maxBlockSize,"::",new File("src/"));
-        List<File> SortedYEET = new ArrayList<>();
-        SortedYEET.add(new File("src\\temp-file12452488234315142491.tmp"));
-        SortedYEET.add(new File("src\\temp-file7658677191120903075.tmp"));
-        initializeMerge(SortedYEET,new File("src/outPUT.txt"),"::");
-
-
-
+        List<File> sortedTempFiles = distribute(file, maxBlockSize, delimiter, destination);
+        initializeMerge(sortedTempFiles, output, delimiter);
     }
-    public static long initializeMerge(List<File> sortedTempFiles, File outputFile, String delimiter) throws IOException {
+
+    public static void initializeMerge(List<File> sortedTempFiles, File outputFile, String delimiter) throws IOException {
+        System.out.println("Starting to merge smaller files.");
         ArrayList<IOStringStack> buffers = new ArrayList<>();
-        for(File file: sortedTempFiles){
+        for (File file : sortedTempFiles) {
             InputStream inputStream = new FileInputStream(file);
             BufferedReader bufferedReader;
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            FileBuffer buffer =  new FileBuffer(bufferedReader,delimiter);
+            FileBuffer buffer = new FileBuffer(bufferedReader, delimiter);
             buffers.add(buffer);
         }
-        BufferedWriter bufferedWriter =  new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile,false)));
-        long rowCounter = merge(bufferedWriter,buffers);
-        for(File f: sortedTempFiles){
+        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile, false)));
+        merge(bufferedWriter, buffers, delimiter);
+        for (File f : sortedTempFiles) {
             f.deleteOnExit();
         }
-        return rowCounter;
     }
 
-    public static long merge(BufferedWriter bufferedWriter, List<IOStringStack> buffers) throws IOException {
+    public static void merge(BufferedWriter bufferedWriter, List<IOStringStack> buffers, String delimiter) throws IOException {
         Comparator<NTLMPair> comp = new NtlmComparator();
-        PriorityQueue<IOStringStack> priorityQueue =  new PriorityQueue<>(11, (o1, o2) -> comp.compare(o1.getCache(),o2.getCache()));
-        for (IOStringStack buffer: buffers){
-            if(!buffer.cacheEmpty()){
+        PriorityQueue<IOStringStack> priorityQueue = new PriorityQueue<>(11, (o1, o2) -> comp.compare(o1.getCache(), o2.getCache()));
+        for (IOStringStack buffer : buffers) {
+            if (!buffer.isCacheEmpty()) {
                 priorityQueue.add(buffer);
             }
         }
-        long rowcounter= 0;
-        try{
-            NTLMPair lastline = null;
-            while (priorityQueue.size()> 0){
+        try {
+            while (priorityQueue.size() > 0) {
                 IOStringStack priorityBuffer = priorityQueue.poll();
                 NTLMPair pair = priorityBuffer.popCache();
-                bufferedWriter.write(pair.toString());
+                bufferedWriter.write(pair.word + delimiter + pair.hash);
                 bufferedWriter.newLine();
-                lastline = pair;
-                ++rowcounter;
-                if(priorityBuffer.cacheEmpty()){
+                if (priorityBuffer.isCacheEmpty()) {
                     priorityBuffer.close();
-                }else{
+                } else {
                     priorityQueue.add(priorityBuffer);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             bufferedWriter.close();
-            for(IOStringStack buffer: priorityQueue){
+            for (IOStringStack buffer : priorityQueue) {
                 buffer.close();
             }
+            System.out.println("Merging done.");
         }
-        return rowcounter;
     }
 
 
     public static List<File> distribute(File file, long maxBlockSize, String delimiter, File directory) throws IOException {
-
+        System.out.println("Splitting given wordlist into smaller sorted files...");
         List<File> files = new ArrayList<>();
         BufferedReader bufferedReader = null;
         List<NTLMPair> temp = new ArrayList<>();
         try {
             bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file.getAbsolutePath())));
-
             String line = "";
             while (line != null) {
                 long currentBlockSize = 0;
@@ -96,28 +85,27 @@ public class ExternalSort {
                 files.add(saveToTempFiles(temp, directory, delimiter));
                 temp.clear();
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-            if(temp.size()>0){
-                files.add(saveToTempFiles(temp,directory,delimiter));
+            if (temp.size() > 0) {
+                files.add(saveToTempFiles(temp, directory, delimiter));
                 temp.clear();
             }
-        }
-        finally {
+        } finally {
             bufferedReader.close();
         }
         return files;
     }
 
-    public static File saveToTempFiles(List<NTLMPair> temp, File directory, String delimiter) throws IOException {
+    public static File saveToTempFiles(List<NTLMPair> temp, File targetDirectory, String delimiter) throws IOException {
         String fileTemplate = "temp-file";
         temp.sort(new NtlmComparator());
-        File tempFile = File.createTempFile(fileTemplate, null,(new File("src/")));
+        File tempFile = File.createTempFile(fileTemplate, null, targetDirectory);
         try {
             tempFile.deleteOnExit();
             OutputStream out = new FileOutputStream(tempFile);
 
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(out));
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(out),8192*10);
             for (NTLMPair pair : temp) {
                 bufferedWriter.write(pair.word + delimiter + pair.hash);
                 bufferedWriter.newLine();
@@ -125,6 +113,7 @@ public class ExternalSort {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("Created:\t" + tempFile.getName());
         return tempFile;
     }
 
@@ -148,12 +137,12 @@ public class ExternalSort {
 
     public static long estimateBestSizeOfBlocks(final long sizeoffile,
                                                 final int maxtmpfiles, final long maxMemory) {
-        long blocksize = sizeoffile / maxtmpfiles
-                + (sizeoffile % maxtmpfiles == 0 ? 0 : 1);
+        System.out.println("Estimating block size.");
+        long blocksize = sizeoffile / maxtmpfiles + (sizeoffile % maxtmpfiles == 0 ? 0 : 1);
         if (blocksize < maxMemory / 2) {
             blocksize = maxMemory / 2;
         }
-        return blocksize/2;
+        return blocksize / 4;
     }
 
     public static int getStringSizeinBytes(String line) {
