@@ -29,7 +29,7 @@ public final class FileBuffer implements IOStringStack {
     private void reload() throws IOException {
         String line = this.fbr.readLine();
         if (line != null) {
-            String[] lines = line.strip().split(this.delimiter);
+            String[] lines = line.trim().split(this.delimiter);
             //In the case that the wordlist contains a bad row, skip it.
             if(lines.length == 2) {
                 this.cache = new NTLMPair(lines[0], lines[1]);

@@ -2,6 +2,7 @@ import java.io.*;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 
 public class NTLMCrack {
@@ -11,6 +12,7 @@ public class NTLMCrack {
     public static final String DEFAULT_OUTPUT = "genTable.txt";
     public static final int DEFAULT_MAXTEMPFILES = 1024;
     public static final int DEFAULT_SEARCH_MAXBLOCKSIZE = 100000;
+    public static long totalLines = 0;
 
     public static void main(String[] args) {
         int maxTempFiles = DEFAULT_MAXTEMPFILES;
@@ -52,6 +54,7 @@ public class NTLMCrack {
                 }
                 case "-h", "--help" -> {
                     listParameters();
+                    return;
                 }
                 case "-mt", "--maxtemp" -> {
                     param++;
@@ -86,6 +89,7 @@ public class NTLMCrack {
         File tableFile = tableSource != null ? new File(tableSource) : null;
 
         List<String>hashes = wordListToList(hashFile);
+        int hashesCount = hashes.size();
 
         if (wordListFile != null) {
             try {
@@ -95,21 +99,34 @@ public class NTLMCrack {
                 return;
             }
         }
+        long start = System.nanoTime();
+
         try {
             if (tableFile != null) {
-                List<NTLMPair> matches = searchFile(tableFile, hashes, delimiter, maxBlockSize);
+                HashSet<NTLMPair> matches = searchFile(tableFile, hashes, delimiter, maxBlockSize);
+                System.out.println("*".repeat(50));
                 for (NTLMPair pair : matches) {
                     System.out.println(pair.toString());
                 }
+                System.out.println("*".repeat(50));
+                System.out.println("Passwords broken: " + matches.size());
+                System.out.println("Success percentage: "+ (double) matches.size()/hashesCount);
             } else {
-                List<NTLMPair> matches = searchFile(outputFile, hashes, delimiter, maxBlockSize);
+                HashSet<NTLMPair> matches = searchFile(outputFile, hashes, delimiter, maxBlockSize);
+                System.out.println("*".repeat(50));
                 for (NTLMPair pair : matches) {
                     System.out.println(pair.toString());
                 }
+                System.out.println("*".repeat(50));
+                System.out.println("Passwords broken: " + matches.size());
+                System.out.println("Success percentage: "+ (double) matches.size()/hashesCount);
             }
         }catch (IOException e){
             e.printStackTrace();
         }
+        System.out.println("Time elapsed: "+TimeUnit.SECONDS.convert(System.nanoTime() - start, TimeUnit.NANOSECONDS) + " seconds");
+        System.out.println("Total hashes checked: "+ totalLines);
+
     }
 
     public static void listParameters() {
@@ -124,19 +141,23 @@ public class NTLMCrack {
 
     }
 
-    public static List<NTLMPair> searchFile(File file, List<String> hashes, String delimiter, int maxBlockSize) throws IOException {
+    public static HashSet<NTLMPair> searchFile(File file, List<String> hashes, String delimiter, int maxBlockSize) throws IOException {
         System.out.println("Starting to bruteforce hashes...");
         List<NTLMPair> tempList = new ArrayList<>();
-        List<NTLMPair> matches = new ArrayList<>();
+        HashSet<NTLMPair> matches = new HashSet<>();
         BufferedReader bufferedReader = null;
+        int rows = 0;
         try {
             bufferedReader =  new BufferedReader(new InputStreamReader(new FileInputStream(file.getAbsolutePath())),8192*100);
             String line = "";
-            int rows = 0;
             while (line != null) {
                 while (rows < maxBlockSize && (line = bufferedReader.readLine()) != null) {
-                    String[] pair = line.strip().split(delimiter);
-                    tempList.add(new NTLMPair(pair));
+                    StringTokenizer tokenizer = new StringTokenizer(line.trim(),delimiter);
+                    try{
+                        tempList.add(new NTLMPair(tokenizer.nextToken(), tokenizer.nextToken()));
+                    }catch (NoSuchElementException e){
+                        continue;
+                    }
                     rows++;
                 }
                 for (String hash : hashes) {
@@ -146,6 +167,7 @@ public class NTLMCrack {
                     }
                 }
                 tempList.clear();
+                totalLines+=rows;
                 rows = 0;
             }
         } catch (IOException e) {
@@ -157,6 +179,7 @@ public class NTLMCrack {
                     NTLMPair output = crack(tempList, hash);
                     if (output != null) {
                         matches.add(output);
+                        hashes.remove(output.hash);
                     }
                 }
             }
@@ -170,12 +193,18 @@ public class NTLMCrack {
     }
 
     public static int search(List<NTLMPair> pairList, String hash) {
+        String startHash = pairList.get(0).hash;
+        String endHash = pairList.get(pairList.size()-1).hash;
+        if(outsideRange(startHash,endHash,hash)){
+            return -1;
+        }
+
         int l = 0, r = pairList.size() - 1;
         while (l <= r) {
             int m = l + (r - l) / 2;
             int res = hash.compareTo(pairList.get(m).hash);
-            if (res == 0)
-                return m;
+            if (res == 0){
+                return m;}
             if (res > 0)
                 l = m + 1;
             else
@@ -183,6 +212,12 @@ public class NTLMCrack {
         }
 
         return -1;
+    }
+
+    public static boolean outsideRange(String start, String end, String in ){
+        int overEnd = in.compareTo(end);
+        int belowStart = in.compareTo(start);
+        return (overEnd > 0) && (belowStart < 0);
     }
 
     public static List<String> wordListToList(File wordlist) {

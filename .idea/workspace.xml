@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8f0857e5-1468-4082-a0cb-998191595481" name="Changes" comment="NTLM breaking using binarySearch">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/NtlmCrack.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ExternalSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ExternalSort.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FileBuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FileBuffer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/IOStringStack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/IOStringStack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/NTLMCrack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NTLMCrack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/NTLMPair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NTLMPair.java" afterDir="false" />
     </list>
@@ -72,7 +67,7 @@
     <configuration name="NTLMCrack" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="NTLMCrack" />
       <module name="NtlmCrack" />
-      <option name="PROGRAM_PARAMETERS" value="-s &quot;ntlm_rasid.txt&quot; -w &quot;hashkiller-dict.txt&quot;" />
+      <option name="PROGRAM_PARAMETERS" value="-s &quot;ntlm_rasid.txt&quot; -w &quot;hashkiller-dict.txt&quot; -dl &quot;::::&quot;" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -80,7 +75,7 @@
     <configuration name="NTLMCrack_withTable" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="NTLMCrack" />
       <module name="NtlmCrack" />
-      <option name="PROGRAM_PARAMETERS" value="-s &quot;ntlm_rasid.txt&quot; -t &quot;genTable.txt&quot; -dl &quot;::&quot;" />
+      <option name="PROGRAM_PARAMETERS" value="-s &quot;ntlm_rasid.txt&quot; -t &quot;genTable.txt&quot; -dl &quot;:::&quot;" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -111,7 +106,9 @@
       <workItem from="1648396819653" duration="1621000" />
       <workItem from="1648398629741" duration="1759000" />
       <workItem from="1648402028529" duration="5297000" />
-      <workItem from="1648409234314" duration="201000" />
+      <workItem from="1648409234314" duration="856000" />
+      <workItem from="1648471243116" duration="1196000" />
+      <workItem from="1648539268464" duration="9561000" />
     </task>
     <task id="LOCAL−00001" summary="External Merge sort">
       <created>1648328471408</created>
@@ -119,7 +116,13 @@
       <option name="presentableId" value="LOCAL−00001" />
       <updated>1648328471409</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL−00002" summary="NTLM breaking using binarySearch">
+      <created>1648409468395</created>
+      <option name="number" value="LOCAL−00002" />
+      <option name="presentableId" value="LOCAL−00002" />
+      <updated>1648409468395</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

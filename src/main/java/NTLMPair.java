@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class NTLMPair {
     String word;
     String hash;
@@ -21,6 +23,19 @@ public class NTLMPair {
 
     public void setHash(String hash) {
         this.hash = hash;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NTLMPair ntlmPair = (NTLMPair) o;
+        return word.equals(ntlmPair.word) && hash.equals(ntlmPair.hash);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(word, hash);
     }
 
     public NTLMPair(String word, String hash) {
