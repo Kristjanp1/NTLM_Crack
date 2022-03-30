@@ -41,13 +41,14 @@ FLAGS:
 
 -s or --source: 	 Source for a list of hashes
 -w or --wordlist: 	 Source for a wordlist
--t or --table: 	  Source for a custom/pre-generated table
+-t or --table: 	         Source for a custom/pre-generated table
 -dl or --delimiter: 	 Separator for words and hashes in provided table (DEFAULT = "::")
 -d or --destination: 	 Destination for the generated table (DEFAULT = ".\")
--n or --name: 	 Name for the generated table (DEFAULT = "genTable.txt")
+-n or --name:            Name for the generated table (DEFAULT = "genTable.txt")
+-o or --outname: 	 Name for the file that stores cracked hashes
 -mb or --maxtemp: 	 Amount of allowed temporary files (DEFAULT = 1024)
--mt or --maxblock:   Amount of rows read into memory when breaking hashes (DEFAULT = 90 000)
--h or --help: 	 Display the list of flags.
+-mt or --maxblock:       Amount of rows read into memory when breaking hashes (DEFAULT = 90 000)
+-h or --help: 	         Display the list of flags.
 
 Ex.
 java -jar .\NtlmCrack.jar -s "hashes.txt" -w "hashkiller.txt"

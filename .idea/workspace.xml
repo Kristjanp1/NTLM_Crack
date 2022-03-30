@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f0857e5-1468-4082-a0cb-998191595481" name="Changes" comment="BinarySeach optimization, minor fixes &amp; improvements">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="8f0857e5-1468-4082-a0cb-998191595481" name="Changes" comment="Default values changed, some flags added, made binarySearch more efficient, improved verbosity.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/README.MD" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/NTLMCrack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NTLMCrack.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,11 +63,11 @@
       <recent name="C:\Users\KristjanPühvel\Desktop\KIT\NtlmCrack" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.NTLMCrack_withTable">
+  <component name="RunManager" selected="Application.NTLMCrack">
     <configuration name="NTLMCrack" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="NTLMCrack" />
       <module name="NtlmCrack" />
-      <option name="PROGRAM_PARAMETERS" value="-s &quot;ntlm_rasid.txt&quot; -w &quot;hashkiller-dict.txt&quot; -dl &quot;::::&quot;" />
+      <option name="PROGRAM_PARAMETERS" value="-s &quot;ntlm_rasid.txt&quot; -w &quot;kaonashi14M.txt&quot; -n &quot;kaonashiTable.txt&quot;" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -114,7 +114,7 @@
       <workItem from="1648562946031" duration="4950000" />
       <workItem from="1648568084621" duration="6741000" />
       <workItem from="1648574860238" duration="5640000" />
-      <workItem from="1648666116226" duration="3168000" />
+      <workItem from="1648666116226" duration="5335000" />
     </task>
     <task id="LOCAL−00001" summary="External Merge sort">
       <created>1648328471408</created>
@@ -134,7 +134,13 @@
       <option name="presentableId" value="LOCAL−00003" />
       <updated>1648549171430</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL−00004" summary="Default values changed, some flags added, made binarySearch more efficient, improved verbosity.">
+      <created>1648669985694</created>
+      <option name="number" value="LOCAL−00004" />
+      <option name="presentableId" value="LOCAL−00004" />
+      <updated>1648669985694</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,7 +162,8 @@
     <MESSAGE value="External Merge sort" />
     <MESSAGE value="NTLM breaking using binarySearch" />
     <MESSAGE value="BinarySeach optimization, minor fixes &amp; improvements" />
-    <option name="LAST_COMMIT_MESSAGE" value="BinarySeach optimization, minor fixes &amp; improvements" />
+    <MESSAGE value="Default values changed, some flags added, made binarySearch more efficient, improved verbosity." />
+    <option name="LAST_COMMIT_MESSAGE" value="Default values changed, some flags added, made binarySearch more efficient, improved verbosity." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/NtlmCrack$NTLMCrack_withTable.ic" NAME="NTLMCrack_withTable Coverage Results" MODIFIED="1648560828462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

@@ -13,6 +13,7 @@ public class NTLMCrack {
     public static final String DEFAULT_DELIMITER = "::";
     public static final String DEFAULT_DESTINATION = "./";
     public static final String DEFAULT_OUTPUT = "genTable.txt";
+    public static final String DEFAULT_OUTPUT_HASHES = "crackedHashes.txt";
     public static final int DEFAULT_MAXTEMPFILES = 1024;
     public static final int DEFAULT_SEARCH_MAXBLOCKSIZE = 90000;
     public static long totalLines = 0;
@@ -20,6 +21,7 @@ public class NTLMCrack {
     public static void main(String[] args) {
         int maxTempFiles = DEFAULT_MAXTEMPFILES;
         int maxBlockSize = DEFAULT_SEARCH_MAXBLOCKSIZE;
+        String outPutHashes = DEFAULT_OUTPUT_HASHES;
         String delimiter = DEFAULT_DELIMITER;
         String destination = DEFAULT_DESTINATION;
         String outputName = DEFAULT_OUTPUT;
@@ -46,6 +48,10 @@ public class NTLMCrack {
                 case "-n", "--name" -> {
                     param++;
                     outputName = args[param];
+                }
+                case "-o", "-outname"-> {
+                    param++;
+                    outPutHashes = args[param];
                 }
                 case "-t", "--table" -> {
                     param++;
@@ -86,6 +92,7 @@ public class NTLMCrack {
             return;
         }
         File destinationFile = new File(destination);
+        File outPutHashesFile = new File(destination+outPutHashes);
         File outputFile = new File(destination + outputName);
         File hashFile = new File(hashesSource);
         File wordListFile = wordListSource != null ? new File(wordListSource) : null;
@@ -108,21 +115,23 @@ public class NTLMCrack {
             if (tableFile != null) {
                 HashSet<NTLMPair> matches = searchFile(tableFile, hashes, delimiter, maxBlockSize);
                 System.out.println("*".repeat(50));
-//                for (NTLMPair pair : matches) {
-//                    System.out.println(pair.toString());
-//                }
+                for (NTLMPair pair : matches) {
+                    System.out.println(pair.toString());
+                }
                 System.out.println("*".repeat(50));
                 System.out.println("Passwords broken: " + matches.size());
                 System.out.println("Success percentage: " + (double) matches.size() / hashesCount);
+                writeListToFile(outPutHashesFile,matches);
             } else {
                 HashSet<NTLMPair> matches = searchFile(outputFile, hashes, delimiter, maxBlockSize);
                 System.out.println("*".repeat(50));
-//                for (NTLMPair pair : matches) {
-//                    System.out.println(pair.toString());
-//                }
+                for (NTLMPair pair : matches) {
+                    System.out.println(pair.toString());
+                }
                 System.out.println("*".repeat(50));
                 System.out.println("Passwords broken: " + matches.size());
                 System.out.println("Success percentage: " + (double) matches.size() / hashesCount);
+                writeListToFile(outPutHashesFile,matches);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -140,6 +149,7 @@ public class NTLMCrack {
         System.out.println("-dl or --delimiter: \t Delimiter for custom table");
         System.out.println("-d or --destination: \t Destination for generated table");
         System.out.println("-n or --name: \t Name for generated table");
+        System.out.println("-o or --outname: \t Name for the file that stores cracked hashes");
         System.out.println("-mb or --maxtemp: \t Amount of allowed temporary files");
         System.out.println("-mt or --maxblock: \t Amount of rows read into memory when breaking hashes");
         System.out.println("-h or --help: \t Display this message");
@@ -236,6 +246,21 @@ public class NTLMCrack {
             e.printStackTrace();
         }
         return wordList;
+    }
+
+    public static void writeListToFile( File destination, HashSet<NTLMPair> hashes) throws IOException {
+        BufferedWriter buffer = new BufferedWriter(new FileWriter(destination.getAbsolutePath()));
+        try{
+            for(NTLMPair pair: hashes){
+                buffer.write(pair.toString());
+                buffer.newLine();
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        finally {
+            buffer.close();
+        }
     }
 
 }
