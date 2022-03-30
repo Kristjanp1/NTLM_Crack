@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f0857e5-1468-4082-a0cb-998191595481" name="Changes" comment="Default values changed, some flags added, made binarySearch more efficient, improved verbosity.">
+    <list default="true" id="8f0857e5-1468-4082-a0cb-998191595481" name="Changes" comment="Uncommenting, adding outName flag.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/README.MD" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/NTLMCrack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NTLMCrack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/NtlmCrack.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +113,7 @@
       <workItem from="1648562946031" duration="4950000" />
       <workItem from="1648568084621" duration="6741000" />
       <workItem from="1648574860238" duration="5640000" />
-      <workItem from="1648666116226" duration="5335000" />
+      <workItem from="1648666116226" duration="5635000" />
     </task>
     <task id="LOCAL−00001" summary="External Merge sort">
       <created>1648328471408</created>
@@ -140,7 +139,13 @@
       <option name="presentableId" value="LOCAL−00004" />
       <updated>1648669985694</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL−00005" summary="Uncommenting, adding outName flag.">
+      <created>1648671967082</created>
+      <option name="number" value="LOCAL−00005" />
+      <option name="presentableId" value="LOCAL−00005" />
+      <updated>1648671967082</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,7 +168,8 @@
     <MESSAGE value="NTLM breaking using binarySearch" />
     <MESSAGE value="BinarySeach optimization, minor fixes &amp; improvements" />
     <MESSAGE value="Default values changed, some flags added, made binarySearch more efficient, improved verbosity." />
-    <option name="LAST_COMMIT_MESSAGE" value="Default values changed, some flags added, made binarySearch more efficient, improved verbosity." />
+    <MESSAGE value="Uncommenting, adding outName flag." />
+    <option name="LAST_COMMIT_MESSAGE" value="Uncommenting, adding outName flag." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/NtlmCrack$NTLMCrack_withTable.ic" NAME="NTLMCrack_withTable Coverage Results" MODIFIED="1648560828462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
