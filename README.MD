@@ -24,12 +24,12 @@ Otherwise the program utilizes a couple of libraries using Maven.
 
 ### Installing & running
 
-- get the java jdk
-- Install Maven 2
+- Get the JDK
+- Install Maven
 - mvn install - builds jar (requires signing)
-- or mvn package - builds jar (does not require signing)
-- mvn test - runs tests
+
 OR
+
 Simply run the .jar file in "target".
 
 ### Executing program
