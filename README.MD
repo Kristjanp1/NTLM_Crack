@@ -46,8 +46,8 @@ FLAGS:
 -d or --destination: 	 Destination for the generated table (DEFAULT = ".\")
 -n or --name:            Name for the generated table (DEFAULT = "genTable.txt")
 -o or --outname: 	 Name for the file that stores cracked hashes
--mb or --maxtemp: 	 Amount of allowed temporary files (DEFAULT = 1024)
--mt or --maxblock:       Amount of rows read into memory when breaking hashes (DEFAULT = 90 000)
+-mt or --maxtemp: 	 Amount of allowed temporary files (DEFAULT = 1024)
+-mb or --maxblock:       Amount of rows read into memory when breaking hashes (DEFAULT = 90 000)
 -h or --help: 	         Display the list of flags.
 
 Ex.
